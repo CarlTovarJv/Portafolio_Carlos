@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="description"
+        content="Portfolio of Carlos Ezequiel Tovar Jovel: web developer and future chemical engineer from El Salvador.">
+    <meta name="theme-color" id="tc" content="#050d14">
+    <title>Home | Carlos Ezequiel Tovar Jovel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Archivo:wght@800;900&family=Abril+Fatface&display=swap">
+    <script src="js/theme-init.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <canvas id="bg" aria-hidden="true"></canvas>
+    <div class="ghost in" id="ghost" aria-hidden="true">Home.</div>
+    <a class="skip" href="#content">Skip to content</a>
+
+    <header>
+        <div class="wrap">
+            <a class="logo" href="index.html" aria-label="Carlos, home"><svg width="26" height="32" viewBox="0 0 26 32"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    aria-hidden="true">
+                    <path d="M10 2v9L2.5 26a2.5 2.5 0 0 0 2.2 3.5h16.6a2.5 2.5 0 0 0 2.2-3.5L16 11V2M8 2h10" />
+                    <path d="M5.5 20h15l3 6a2.5 2.5 0 0 1-2.2 3.5H4.7A2.5 2.5 0 0 1 2.5 26Z" fill="currentColor"
+                        fill-opacity=".3" stroke="none" />
+                    <circle class="bb" cx="11" cy="25" r="1.5" fill="currentColor" stroke="none" />
+                    <circle class="bb b2" cx="16.5" cy="26.5" r="1.1" fill="currentColor" stroke="none" />
+                </svg>Carlos</a>
+            <div class="actions">
+                <nav id="nav" aria-label="Main">
+                    <ul>
+                        <li><a class="on" aria-current="page" href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="projects.html">Projects</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <button class="icon-btn" id="theme" type="button" aria-label="Switch between light and dark mode"><svg
+                        width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        aria-hidden="true">
+                        <circle cx="12" cy="12" r="9" />
+                        <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" />
+                    </svg></button>
+                <button class="menu" id="menu" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+            </div>
+        </div>
+    </header>
+
+    <main id="content">
+        <section class="view active" id="home" data-title="Home">
+            <div class="wrap">
+                <img class="avatar" width="150" height="150" alt="Portrait of Carlos"
+                    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23f3f3f3'/%3E%3Ccircle cx='200' cy='160' r='70' fill='%230a0a0a'/%3E%3Cpath d='M60 400c0-100 62-150 140-150s140 50 140 150z' fill='%230a0a0a'/%3E%3C/svg%3E">
+                <h1><span class="l mask"><span>Hello, world!</span></span><span class="l mask"><span>My name is <span
+                                class="glitch" data-text="Carlos">Carlos</span></span></span></h1>
+                <p class="role">Web Developer &amp; Future Chemical Engineer</p>
+                <p class="bio">I’m a student from El Salvador who builds websites, tinkers with electronics and dreams
+                    of becoming a chemical engineer. I spend my time on <a href="projects.html">projects</a>, collecting
+                    <a href="courses.html">courses</a> and learning something new every day. Anyway, you can <a
+                        href="contact.html">contact me</a>.</p>
+                <a class="more il" href="about.html">See More About Me →</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="social" aria-label="Professional links">
+            <a href="https://github.com/your-username" target="_blank" rel="noopener">GitHub ↗</a>
+            <a href="https://www.linkedin.com/in/your-name" target="_blank" rel="noopener">LinkedIn ↗</a>
+            <a href="mailto:your-email@example.com">Email ↗</a>
+        </div>
+        <div>© 2026 Carlos Ezequiel Tovar Jovel</div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
