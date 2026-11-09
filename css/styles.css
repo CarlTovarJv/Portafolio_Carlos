@@ -1643,3 +1643,34 @@ footer {
         transition: none
     }
 }
+
+/* Projects: el año / etiqueta queda pegado al contenido.
+   La columna de la izquierda se ajusta al ancho de la etiqueta mas larga de cada seccion (subgrid). Solo en pantallas > 760px. */
+@media(min-width:761px) {
+    #projects .wrap>div {
+        display: grid;
+        grid-template-columns: max-content minmax(0, 1fr);
+        column-gap: 30px
+    }
+
+    #projects .item {
+        grid-template-columns: subgrid;
+        grid-column: 1 / -1;
+        column-gap: 30px
+    }
+}
+
+/* Projects (pantallas >= 1100px): "More projects" empieza en el mismo punto que "Featured projects".
+   Las dos secciones usan la misma columna fija de la izquierda (el ancho de un año). Las palabras mas largas
+   (Informatics, Values, Personal) se alinean a la derecha de esa columna y "cuelgan" hacia la izquierda, pegadas al contenido. */
+@media(min-width:1100px) {
+    #projects .wrap>div {
+        grid-template-columns: 2.6rem minmax(0, 1fr)
+    }
+
+    #projects .item>.label {
+        direction: rtl;
+        text-align: left;
+        white-space: nowrap
+    }
+}
