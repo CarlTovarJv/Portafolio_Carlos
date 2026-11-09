@@ -78,29 +78,10 @@ button,
     cursor: pointer
 }
 
-html.cur body {
-    cursor: none
-}
-
-.cursor {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 28px;
-    height: 28px;
-    margin: -14px 0 0 -14px;
-    border-radius: 50%;
-    background: #fff;
-    mix-blend-mode: difference;
-    pointer-events: none;
-    z-index: 9999;
-    opacity: 0;
-    transition: opacity .25s;
-    will-change: transform
-}
-
 @media(hover:none), (pointer:coarse) {
-    .cursor {
+
+    .cursor,
+    .cursor-dot {
         display: none
     }
 }
@@ -794,32 +775,6 @@ nav a {
     color: var(--bg)
 }
 
-html.cur,
-html.cur * {
-    cursor: none !important
-}
-
-.cursor {
-    width: 84px;
-    height: 84px;
-    margin: -42px 0 0 -42px;
-    background: none;
-    border: 1px solid color-mix(in srgb, var(--fg) 75%, transparent);
-    mix-blend-mode: normal
-}
-
-.cursor::after {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    width: 8px;
-    height: 8px;
-    margin: -4px 0 0 -4px;
-    border-radius: 50%;
-    background: var(--muted)
-}
-
 .ghost {
     position: fixed;
     left: -1.5vw;
@@ -864,7 +819,8 @@ header .wrap {
 }
 
 main .wrap {
-    margin-left: max(var(--pad), calc(50% - 454px))
+    margin-left: auto;
+    margin-right: auto
 }
 
 #home .wrap {
@@ -1263,26 +1219,62 @@ h2 {
     }
 }
 
+/* Aviso del formulario: mismo estilo que las tarjetas y etiquetas del sitio (borde fino, brillo cian) */
 .form-status {
-    min-height: 1.6em;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    justify-self: start;
+    padding: 10px 16px;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--soft);
+    color: var(--fg);
     font-size: .95rem;
-    color: var(--muted)
+    line-height: 1.45
+}
+
+.form-status:empty {
+    display: none
+}
+
+.form-status:not(:empty) {
+    animation: statusin .35s cubic-bezier(.2, .7, .2, 1) both
+}
+
+.form-status::before {
+    content: "\2713";
+    flex: none;
+    color: rgb(var(--glow))
 }
 
 .form-status.ok {
-    color: #4ade80
+    border-color: rgba(var(--glow), .45);
+    background: rgba(var(--glow), .08);
+    box-shadow: 0 0 16px rgba(var(--glow), .25), inset 0 0 8px rgba(var(--glow), .12)
 }
 
 .form-status.err {
+    border-color: rgba(248, 113, 113, .45);
+    background: rgba(248, 113, 113, .08)
+}
+
+.form-status.err::before {
+    content: "!";
     color: #f87171
 }
 
-:root[data-theme="light"] .form-status.ok {
-    color: #15803d
+@keyframes statusin {
+    from {
+        opacity: 0;
+        transform: translateY(8px)
+    }
 }
 
-:root[data-theme="light"] .form-status.err {
-    color: #b91c1c
+@media(prefers-reduced-motion:reduce) {
+    .form-status:not(:empty) {
+        animation: none
+    }
 }
 
 .btn[disabled] {
@@ -1485,6 +1477,169 @@ footer {
     .carousel .cert.in,
     .car-btn {
         animation: none;
+        transition: none
+    }
+}
+
+/* Etiquetas de la izquierda (anios, Informatics, Values, Personal...): mas grandes y notorias */
+.item {
+    align-items: baseline
+}
+
+.item>.label {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: .06em;
+    color: color-mix(in srgb, var(--fg) 55%, var(--muted))
+}
+
+/* Contact: el formulario va en una tarjeta con el mismo ancho que el resto del contenido (igual que las tarjetas de certificados) */
+.contact-card {
+    margin-top: 36px;
+    padding: clamp(18px, 3vw, 28px);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    background: var(--soft);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px)
+}
+
+.contact-card .form {
+    max-width: none;
+    margin-top: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr))
+}
+
+.contact-card .form textarea,
+.contact-card .form .go,
+.contact-card .form .form-status {
+    grid-column: 1 / -1
+}
+
+@media(max-width:600px) {
+    .contact-card .form {
+        grid-template-columns: 1fr
+    }
+}
+
+/* Cursor (como el del video de referencia): puntero normal + aro lento + punto rapido; sobre enlaces el aro se encoge y el punto crece (js/main.js) */
+:root {
+    --cur-ring: rgba(255, 255, 255, .5);
+    --cur-dot: rgba(255, 255, 255, .62);
+    --cur-link-fill: rgba(255, 255, 255, .28);
+    --cur-link-border: #fff
+}
+
+:root[data-theme="light"] {
+    --cur-ring: rgba(11, 23, 32, .2);
+    --cur-dot: rgba(11, 23, 32, .24);
+    --cur-link-fill: rgba(11, 23, 32, .16);
+    --cur-link-border: #0b1720
+}
+
+.cursor,
+.cursor-dot {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 0;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .25s;
+    will-change: transform
+}
+
+.cursor.on,
+.cursor-dot.on {
+    opacity: 1
+}
+
+.cursor i {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 84px;
+    height: 84px;
+    border: 1px solid var(--cur-ring);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    transition: transform .35s cubic-bezier(.2, .7, .2, 1), opacity .35s
+}
+
+.cursor.link i {
+    transform: translate(-50%, -50%) scale(.25);
+    opacity: 0
+}
+
+.cursor-dot i {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 8px;
+    height: 8px;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    background: var(--cur-dot);
+    transform: translate(-50%, -50%);
+    transition: width .2s ease, height .2s ease, background .2s ease, border-color .2s ease
+}
+
+.cursor-dot.link i {
+    width: 18px;
+    height: 18px;
+    border-color: var(--cur-link-border);
+    background: var(--cur-link-fill)
+}
+
+@media(prefers-reduced-motion:reduce) {
+
+    .cursor i,
+    .cursor-dot i {
+        transition: none
+    }
+}
+
+/* Aviso flotante ("Email copied to clipboard") */
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: calc(28px + env(safe-area-inset-bottom, 0px));
+    z-index: 100;
+    max-width: calc(100vw - 40px);
+    padding: 10px 18px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    color: var(--fg);
+    font-size: .9rem;
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(-50%, 12px);
+    transition: opacity .25s, transform .25s cubic-bezier(.2, .7, .2, 1)
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translate(-50%, 0)
+}
+
+.toast::before {
+    content: "\2713";
+    margin-right: 8px;
+    color: rgb(var(--glow))
+}
+
+.toast.err::before {
+    content: "!";
+    color: #f87171
+}
+
+@media(prefers-reduced-motion:reduce) {
+    .toast {
         transition: none
     }
 }

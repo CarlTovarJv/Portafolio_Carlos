@@ -56,7 +56,8 @@
             <div class="wrap">
                 <h2 tabindex="-1"><span class="mask"><span>Contact.</span></span></h2>
                 <p class="lead">Get in touch or shoot me an email directly on <a class="il mail" id="mail"
-                        href="mailto:carlostovar0109@gmail.com">carlostovar0109@gmail.com</a></p>
+                        href="mailto:carlostovar0109@gmail.com" title="Click to copy">carlostovar0109@gmail.com</a></p>
+                <div class="contact-card">
                 <form class="form" id="form" action="https://api.web3forms.com/submit" method="POST">
 
                     <input type="hidden" name="access_key" value="d4a555af-dbe8-40ba-bfa4-b9fba70739a7">
@@ -73,6 +74,7 @@
                             href="index.html">Go Back Home</a></div>
                     <div class="form-status" id="status" role="status" aria-live="polite"></div>
                 </form>
+                </div>
             </div>
         </section>
     </main>
@@ -143,6 +145,50 @@
                     btn.textContent = label;
                 }
             }, true);
+        })();
+    </script>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script>
+        // Al hacer clic en el correo se copia al portapapeles
+        (function () {
+            var link = document.getElementById('mail'), toast = document.getElementById('toast');
+            if (!link || !toast) return;
+            var timer;
+
+            function notify(ok) {
+                toast.textContent = ok ? 'Email copied to clipboard' : 'Could not copy the email';
+                toast.classList.toggle('err', !ok);
+                toast.classList.add('show');
+                clearTimeout(timer);
+                timer = setTimeout(function () { toast.classList.remove('show'); }, 2200);
+            }
+
+            function legacyCopy(text) {
+                var ta = document.createElement('textarea');
+                ta.value = text;
+                ta.setAttribute('readonly', '');
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                var ok = false;
+                try { ok = document.execCommand('copy'); } catch (e) { }
+                document.body.removeChild(ta);
+                return ok;
+            }
+
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                var text = link.textContent.trim();
+                if (navigator.clipboard && window.isSecureContext) {
+                    navigator.clipboard.writeText(text).then(
+                        function () { notify(true); },
+                        function () { notify(legacyCopy(text)); }
+                    );
+                } else {
+                    notify(legacyCopy(text));
+                }
+            });
         })();
     </script>
 </body>

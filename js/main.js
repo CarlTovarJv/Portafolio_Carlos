@@ -47,14 +47,30 @@
     });
     var fine = matchMedia("(hover:hover) and (pointer:fine)").matches, rm = matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (fine) {
-        var cur = document.createElement("div"); cur.className = "cursor"; cur.setAttribute("aria-hidden", "true"); document.body.appendChild(cur);
-        var tx = -100, ty = -100, cx = -100, cy = -100, cs = 1, ts = 1, k = rm ? 1 : .18;
+        // Cursor (copiado del video de referencia): se ve el puntero normal del sistema y, ademas:
+        //  - un aro de 84px que lo sigue lento
+        //  - un punto de 8px que lo sigue rapido
+        // Sobre un enlace <a>, el aro se encoge y desaparece, y el punto crece a un circulo con borde.
+        var ring = document.createElement("div"), dot = document.createElement("div");
+        ring.className = "cursor"; dot.className = "cursor-dot";
+        ring.setAttribute("aria-hidden", "true"); dot.setAttribute("aria-hidden", "true");
+        ring.appendChild(document.createElement("i")); dot.appendChild(document.createElement("i"));
+        document.body.appendChild(ring); document.body.appendChild(dot);
+        var tx = -100, ty = -100, rx = -100, ry = -100, dx = -100, dy = -100, seen = false,
+            kr = rm ? 1 : .1,   // velocidad del aro (mas bajo = mas lento)
+            kd = rm ? 1 : .35;  // velocidad del punto
         addEventListener("mousemove", function (e) {
-            tx = e.clientX; ty = e.clientY; if (!root.classList.contains("cur")) { root.classList.add("cur"); cx = tx; cy = ty } cur.style.opacity = 1;
-            ts = e.target.closest && e.target.closest("a,button,.btn") ? .5 : 1
+            tx = e.clientX; ty = e.clientY;
+            if (!seen) { seen = true; rx = dx = tx; ry = dy = ty; ring.classList.add("on"); dot.classList.add("on") }
+            var on = !!(e.target.closest && e.target.closest("a[href]"));
+            ring.classList.toggle("link", on); dot.classList.toggle("link", on)
         }, { passive: true });
-        document.addEventListener("mouseleave", function () { cur.style.opacity = 0 });
-        (function loop() { cx += (tx - cx) * k; cy += (ty - cy) * k; cs += (ts - cs) * .15; cur.style.transform = "translate3d(" + cx + "px," + cy + "px,0) scale(" + cs + ")"; requestAnimationFrame(loop) })();
+        (function loop() {
+            rx += (tx - rx) * kr; ry += (ty - ry) * kr; dx += (tx - dx) * kd; dy += (ty - dy) * kd;
+            ring.style.transform = "translate3d(" + rx + "px," + ry + "px,0)";
+            dot.style.transform = "translate3d(" + dx + "px," + dy + "px,0)";
+            requestAnimationFrame(loop)
+        })();
     }
     if (window.Lenis && fine && !rm) {
         var lenis = new Lenis({ lerp: .09 }); window.__lenis = lenis;
