@@ -47,18 +47,15 @@
     });
     var fine = matchMedia("(hover:hover) and (pointer:fine)").matches, rm = matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (fine) {
-        // Cursor (copiado del video de referencia): se ve el puntero normal del sistema y, ademas:
-        //  - un aro de 84px que lo sigue lento
-        //  - un punto de 8px que lo sigue rapido
-        // Sobre un enlace <a>, el aro se encoge y desaparece, y el punto crece a un circulo con borde.
+        // Cursor 
         var ring = document.createElement("div"), dot = document.createElement("div");
         ring.className = "cursor"; dot.className = "cursor-dot";
         ring.setAttribute("aria-hidden", "true"); dot.setAttribute("aria-hidden", "true");
         ring.appendChild(document.createElement("i")); dot.appendChild(document.createElement("i"));
         document.body.appendChild(ring); document.body.appendChild(dot);
         var tx = -100, ty = -100, rx = -100, ry = -100, dx = -100, dy = -100, seen = false,
-            kr = rm ? 1 : .1,   // velocidad del aro (mas bajo = mas lento)
-            kd = rm ? 1 : .35;  // velocidad del punto
+            kr = rm ? 1 : .1,   
+            kd = rm ? 1 : .35;  
         addEventListener("mousemove", function (e) {
             tx = e.clientX; ty = e.clientY;
             if (!seen) { seen = true; rx = dx = tx; ry = dy = ty; ring.classList.add("on"); dot.classList.add("on") }

@@ -1219,7 +1219,7 @@ h2 {
     }
 }
 
-/* Aviso del formulario: mismo estilo que las tarjetas y etiquetas del sitio (borde fino, brillo cian) */
+
 .form-status {
     display: inline-flex;
     align-items: center;
@@ -1329,7 +1329,7 @@ footer {
     }
 }
 
-/* Carrusel de cursos: solo desde 521px. En telefono (<=520px) se queda el diseno original, uno debajo del otro */
+
 .carousel {
     width: 100%
 }
@@ -1481,7 +1481,6 @@ footer {
     }
 }
 
-/* Etiquetas de la izquierda (anios, Informatics, Values, Personal...): mas grandes y notorias */
 .item {
     align-items: baseline
 }
@@ -1493,7 +1492,6 @@ footer {
     color: color-mix(in srgb, var(--fg) 55%, var(--muted))
 }
 
-/* Contact: el formulario va en una tarjeta con el mismo ancho que el resto del contenido (igual que las tarjetas de certificados) */
 .contact-card {
     margin-top: 36px;
     padding: clamp(18px, 3vw, 28px);
@@ -1522,7 +1520,7 @@ footer {
     }
 }
 
-/* Cursor (como el del video de referencia): puntero normal + aro lento + punto rapido; sobre enlaces el aro se encoge y el punto crece (js/main.js) */
+/* Cursor design */
 :root {
     --cur-ring: rgba(255, 255, 255, .5);
     --cur-dot: rgba(255, 255, 255, .62);
@@ -1601,7 +1599,7 @@ footer {
     }
 }
 
-/* Aviso flotante ("Email copied to clipboard") */
+/* alter copy to clipboard */
 .toast {
     position: fixed;
     left: 50%;
@@ -1644,8 +1642,7 @@ footer {
     }
 }
 
-/* Projects: el año / etiqueta queda pegado al contenido.
-   La columna de la izquierda se ajusta al ancho de la etiqueta mas larga de cada seccion (subgrid). Solo en pantallas > 760px. */
+
 @media(min-width:761px) {
     #projects .wrap>div {
         display: grid;
@@ -1660,9 +1657,7 @@ footer {
     }
 }
 
-/* Projects (pantallas >= 1100px): "More projects" empieza en el mismo punto que "Featured projects".
-   Las dos secciones usan la misma columna fija de la izquierda (el ancho de un año). Las palabras mas largas
-   (Informatics, Values, Personal) se alinean a la derecha de esa columna y "cuelgan" hacia la izquierda, pegadas al contenido. */
+
 @media(min-width:1100px) {
     #projects .wrap>div {
         grid-template-columns: 2.6rem minmax(0, 1fr)
@@ -1675,7 +1670,6 @@ footer {
     }
 }
 
-/* Footer siempre abajo: en paginas cortas (por ejemplo Contact en tablet) el footer queda pegado al final de la pantalla */
 body {
     display: flex;
     flex-direction: column;
@@ -1687,7 +1681,7 @@ footer {
     margin-top: auto
 }
 
-/* Telefono (<=600px): el segundo parrafo de About tiene el mismo tamaño de letra que el primero (.lead) */
+
 @media(max-width:600px) {
     .view .lead+p {
         font-size: clamp(1.05rem, 2.6vw, 1.3rem)
