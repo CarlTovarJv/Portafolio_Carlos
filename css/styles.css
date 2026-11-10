@@ -1674,3 +1674,15 @@ footer {
         white-space: nowrap
     }
 }
+
+/* Footer siempre abajo: en paginas cortas (por ejemplo Contact en tablet) el footer queda pegado al final de la pantalla */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: calc(100svh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px))
+}
+
+footer {
+    margin-top: auto
+}
