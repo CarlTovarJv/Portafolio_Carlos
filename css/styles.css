@@ -1686,3 +1686,10 @@ body {
 footer {
     margin-top: auto
 }
+
+/* Telefono (<=600px): el segundo parrafo de About tiene el mismo tamaño de letra que el primero (.lead) */
+@media(max-width:600px) {
+    .view .lead+p {
+        font-size: clamp(1.05rem, 2.6vw, 1.3rem)
+    }
+}
